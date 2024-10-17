@@ -1,0 +1,377 @@
+/* Global Styles */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    font-family: "Linden Hill", serif;
+    font-size: 18px;
+    background-color: #f8f7f5;
+    color: #000000;
+    text-align: center;
+    flex: 1;
+    overflow-y: scroll;
+}
+
+.night {
+    background-color: #1e186b
+}
+
+/* Font Variants */
+.linden-hill-regular, .linden-hill-regular-italic {
+    font-family: "Linden Hill", system-ui;
+}
+
+.linden-hill-regular {
+    font-weight: 400;
+    font-style: normal;
+}
+
+.linden-hill-regular-italic {
+    font-weight: 400;
+    font-style: italic;
+}
+
+/* Text Styles */
+p, ul {
+    margin: 0;
+    text-align: justify;
+}
+
+a {
+    color: #0000FF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+b {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+small {
+    font-size: 14px;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+    width: 640px;
+}
+
+.line {
+    width: 640px;
+    height: 1px;
+    background-color: #fdd401;
+}
+
+/* Input Fields and Buttons */
+input[type="text"] {
+    padding: 3px;
+    font-size: 14px;
+    width: 300px;
+}
+
+input[type="submit"] {
+    padding: 3px 8px;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #f0f0f0;
+}
+
+.simple-btn {
+    margin-right: 5px;
+    padding: 5px;
+    background-color: #ddd;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    width: auto;
+    display: inline-block;
+}
+
+.simple-btn:hover {
+    background-color: #fdd401;
+}
+
+/* Page Layout - Content Structure */
+.content {
+    display: flex;
+    justify-content: space-between;
+    width: 640px;
+    margin: 5px;
+    padding: 5px;
+    flex: 1;
+}
+
+.center-monocolumn, .left-twocolumn, .right-twocolumn {
+    text-align: left;
+    font-size: 14px;
+}
+
+.center-monocolumn {
+    width: 640px;
+}
+
+.left-twocolumn {
+    width: 420px;
+}
+
+.right-twocolumn {
+    width: 200px;
+    text-align: justify;
+}
+
+/* Sections: Info, Search, Links */
+.info-section {
+    display: flex;
+    justify-content: space-between;
+    width: 640px;
+    margin: 20px auto;
+}
+
+.info-item {
+    width: 33%;
+    text-align: center;
+    font-size: 14px;
+}
+
+.search-bar {
+    margin: 10px;
+}
+
+.links-section p {
+    font-size: 14px;
+}
+
+/* Content Cards and Grids */
+.content-min-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 5px;
+    padding: 5px;
+}
+
+.content-min-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 5px;
+    padding: 5px;
+}
+.content-min-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #c5c5c5;
+    height: 200px;
+    overflow: hidden;
+}
+
+.content-min-card:hover {
+    border: 1px solid #fdd401;
+}
+
+.content-min-card-title {
+    font-weight: bold;
+}
+
+.content-min-card-info {
+    margin-top: auto;
+    text-align: left;
+}
+
+/* Focus Section */
+.focus-section {
+    border: 1px solid #fdd401;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.focus-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Tabs */
+.tab {
+    overflow: hidden;
+}
+
+.tab button {
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 5px;
+    background-color: #fdd401;
+    transition: 0.3s;
+}
+
+.tab button:hover {
+    background-color: #ddd;
+}
+
+.tab button.active {
+    background-color: #ccc;
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+}
+
+/* Categories Section */
+.categories {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.category-column {
+    width: 48%;
+}
+
+/* Bordered Sections and Titles */
+.bordered-section {
+    border: 1px solid #fdd401;
+}
+
+.bordered-section-gray {
+    border: 1px solid #c5c5c5;
+}
+
+.section-title, .section-title-gray {
+    padding: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    width: 100%;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.section-title {
+    background-color: #fdd401;
+}
+
+.section-title-gray {
+    background-color: #c5c5c5;
+}
+
+.section-title-text {
+    padding: 5px;
+}
+
+/* Lists */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* Right Column Text Alignment */
+.right-column p {
+    text-align: right;
+    margin-top: 10px;
+}
+
+/* Article Content */
+.article-content {
+    margin: 5px;
+    padding: 5px;
+    height: 800px;
+}
+
+.article-image-left img, .article-image-right img {
+    border-radius: 5px;
+}
+
+.article-image-left img {
+    float: left;
+    margin: 10px 10px 10px 0;
+}
+
+.article-image-right img {
+    float: right;
+    margin: 10px 0 10px 10px;
+}
+
+/* Registration Form */
+input[type="text"], input[type="email"], input[type="password"], select {
+    width: 270px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+button.register-button {
+    width: 270px;
+    padding: 10px 20px;
+    background-color: #fdd401;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.register-button:hover {
+    background-color: #fdd401;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    width: 270px;
+}
+
+.registration-form {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Optional Information Section */
+.optional-fields h3 {
+    margin-top: 30px;
+    font-size: 1.2em;
+    width: 350px;
+}
+
+/* Footer */
+.footer {
+    margin-top: 20px;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 12px;
+    width: 100%;
+    margin-top: auto;
+}
