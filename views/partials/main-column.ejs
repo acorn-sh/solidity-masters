@@ -1,0 +1,42 @@
+<!-- Left Column -->
+<div class="main-column">
+    <!-- Do You Want To Know More -->
+    <div class="focus-section">
+        <div class="section-title-gray">Problem</div>
+        <p>You are tasked with writing a function in Solidity that allows the transfer of tokens between two addresses. The goal is to implement a transfer function that deducts tokens from the sender's balance and credits them to the recipient's balance. If the sender does not have enough tokens, the function should revert with an error.</p>
+
+    </div>
+    <div class="focus-section">
+        <div class="section-title-gray">Solution</div>
+        <div class="right-content">
+            <button class="search-btn">Reset</button>
+            <button class="search-btn">Submit</button>
+        </div>
+        <textarea>
+        // SPDX-License-Identifier: MIT
+        pragma solidity ^0.8.0;
+
+        contract SimpleToken {
+            mapping(address => uint256) public balances;
+
+            constructor(uint256 initialSupply) {
+                // Set the initial balance of the deployer to the initial supply
+                balances[msg.sender] = initialSupply;
+            }
+
+            // TODO: Complete the transfer function
+            function transfer(address recipient, uint256 amount) public {
+                // Check if the sender has enough balance
+                require(balances[msg.sender] >= amount, "Insufficient balance");
+
+                // Subtract the amount from the sender's balance
+                balances[msg.sender] -= amount;
+
+                // Add the amount to the recipient's balance
+                balances[recipient] += amount;
+            }
+        }
+        </textarea>
+    </div>
+
+</div>

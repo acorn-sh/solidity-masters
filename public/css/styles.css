@@ -15,6 +15,14 @@ body {
     text-align: center;
     flex: 1;
     overflow-y: scroll;
+    --dot-bg: #f8f7f5;
+    --dot-color: #000000;
+    --dot-size: 1px;
+    --dot-space: 15px;
+      background:
+          linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+          linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+          var(--dot-color);
 }
 
 .night {
@@ -38,6 +46,7 @@ body {
 
 /* Text Styles */
 p, ul {
+    font-size: 18px;
     margin: 0;
     text-align: justify;
 }
@@ -64,13 +73,47 @@ hr {
     border: 0;
     border-top: 1px solid #ccc;
     margin-top: 20px;
-    width: 640px;
+    width: 600px;
 }
 
 .line {
-    width: 640px;
+    width: 840px;
     height: 1px;
     background-color: #fdd401;
+}
+
+.left-content {
+    text-align: left;
+    margin: 5px 0 5px 5px;
+}
+
+.right-content {
+    text-align: right;
+    margin: 5px 0 5px 5px;
+}
+
+li {
+    display: grid;
+    grid-template-columns: 12px 1fr 60px;
+    gap: 10px;
+    align-items: center;
+}
+
+.number {
+    text-align: left;
+}
+
+.text {
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+}
+
+.score {
+    text-align: right;
+    width: 60px;
 }
 
 /* Input Fields and Buttons */
@@ -111,26 +154,27 @@ input[type="submit"]:hover {
 .content {
     display: flex;
     justify-content: space-between;
-    width: 640px;
+    width: 1040px;
     margin: 5px;
     padding: 5px;
     flex: 1;
 }
 
-.center-monocolumn, .left-twocolumn, .right-twocolumn {
+.center-monocolumn, .main-column, .right-column {
     text-align: left;
     font-size: 14px;
 }
 
 .center-monocolumn {
-    width: 640px;
+    width: 1040px;
 }
 
-.left-twocolumn {
-    width: 420px;
+.main-column {
+    width: 620px;
+    text-align: justify;
 }
 
-.right-twocolumn {
+.right-column {
     width: 200px;
     text-align: justify;
 }
@@ -199,9 +243,19 @@ input[type="submit"]:hover {
 
 /* Focus Section */
 .focus-section {
-    border: 1px solid #fdd401;
+    border: 1px solid #000;
     padding: 5px;
     margin-bottom: 20px;
+    background-color: #f8f7f5;
+}
+
+textarea {
+    width: 100%;
+    min-height: 500px;
+    box-sizing: border-box;
+    font-size: 14px;
+    padding: 10px;
+    resize: none;
 }
 
 .focus-grid {
@@ -253,11 +307,12 @@ input[type="submit"]:hover {
 
 /* Bordered Sections and Titles */
 .bordered-section {
-    border: 1px solid #fdd401;
+    border: 1px solid #000;
+    background-color: #f8f7f5;
 }
 
 .bordered-section-gray {
-    border: 1px solid #c5c5c5;
+    border: 1px solid #fdd401;
 }
 
 .section-title, .section-title-gray {
@@ -270,6 +325,10 @@ input[type="submit"]:hover {
 }
 
 .section-title {
+    background-color: #fdd401;
+}
+
+.time-title {
     background-color: #fdd401;
 }
 
@@ -290,12 +349,6 @@ ul {
 ul li {
     font-size: 14px;
     margin-bottom: 5px;
-}
-
-/* Right Column Text Alignment */
-.right-column p {
-    text-align: right;
-    margin-top: 10px;
 }
 
 /* Article Content */

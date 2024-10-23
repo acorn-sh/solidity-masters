@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acorn SH</title>
+    <title>USC</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,15 +12,29 @@
 <body>
     <center>
         <!-- Include Header -->
-        <h1>Solidity UFC</h1>
+        <h1>Solidity Ultimate Championship</h1>
         <!-- Main Content: Left and Right Columns -->
+        <div class="links-section">
+            <small><b>Menu:</b> <a href="#">Quickstart</a> · <a href="#">Tutorials</a> · <a href="#">Job Posting</a></small>
+        </div>
+        
+        <h2 class="time-title">Time: 30:00</h2>
+
         <div class="content">
+            
             <!-- Left Column -->
+            <%- include('partials/left-column') %>
+
+            <!-- Main Column -->
+            <%- include('partials/main-column') %>
 
             <!-- Right Column -->
+            <%- include('partials/right-column') %>
         </div>
     </center>
 
     <!-- Include Footer -->
+    <%- include('partials/footer') %>
+
 </body>
 </html>
