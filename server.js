@@ -19,6 +19,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', async (req, res) => {
   try {
     const problems = await db.query('SELECT * FROM problems'); // Fetch data from 'problems' table
+    console.log("Problems data fetched:", problems.rows); // Check if data is returned
     res.render('index', { problems: problems.rows }); // Pass data to EJS template
   } catch (err) {
     console.error('Error fetching problems:', err);
