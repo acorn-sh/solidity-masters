@@ -1,6 +1,7 @@
+// routes/index.js
 const express = require('express');
 const router = express.Router();
-const db = require('../config/database'); // Make sure this path matches your setup
+const db = require('../config/database');
 
 // Render the main index page
 router.get('/', (req, res) => {
@@ -8,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 // Route to get all problems
-router.get('/api/problems', async (req, res) => {
+router.get('/problems', async (req, res) => {  // removed `/api` here
     try {
         const result = await db.query('SELECT id, title, description, initial_code FROM problems');
         res.json(result.rows);
@@ -19,7 +20,7 @@ router.get('/api/problems', async (req, res) => {
 });
 
 // Route to get a specific problem by ID
-router.get('/api/problems/:id', async (req, res) => {
+router.get('/problems/:id', async (req, res) => {  // removed `/api` here
     const problemId = req.params.id;
     try {
         const result = await db.query('SELECT title, description, initial_code FROM problems WHERE id = $1', [problemId]);

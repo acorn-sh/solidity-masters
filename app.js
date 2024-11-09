@@ -4,8 +4,8 @@ const path = require('path');
 const db = require('./config/database');
 
 // Import routes
-const indexRouter = require('./routes/index');
-const problemsRouter = require('./routes/problems');
+const indexRouter = require('./routes/index');  // Handles `/`
+const problemsRouter = require('./routes/index'); // Use this for `/problems`
 const leaderboardRouter = require('./routes/leaderboard');
 
 const app = express();
@@ -27,10 +27,10 @@ db.connect()
   .then(() => {
     console.log('Connected to PostgreSQL database.');
 
-    // Use routes
-    app.use('/', indexRouter);
-    app.use('/problems', problemsRouter);
-    app.use('/leaderboard', leaderboardRouter);
+    // Use routes with `api` prefix
+    app.use('/', indexRouter); // Handles `/`
+    app.use('/api', problemsRouter); // Handles `/api/problems`
+    app.use('/api/leaderboard', leaderboardRouter);
 
     // Start the server
     app.listen(PORT, () => {

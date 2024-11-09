@@ -1,6 +1,6 @@
 [
     {
-      "title": "1 Preventing Data Loss in Type Conversion",
+      "title": "Preventing Data Loss in Type Conversion",
       "description": "You are tasked with writing a function that safely converts a larger unsigned integer to a smaller one without data loss. The function should take a uint256 input and return a uint16 output. If the input value is too large to fit into a uint16, the function should revert the transaction with an appropriate error message.",
       "initial_code": "solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract TypeConversion {\n    function toUint16(uint256 input) public pure returns (uint16) {\n        // Your code here\n    }\n}"
     },
