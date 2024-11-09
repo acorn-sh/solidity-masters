@@ -24,8 +24,13 @@ const initDb = async () => {
     if (parseInt(rows[0].count, 10) === 0) {
       console.log("Table is empty, inserting data...");
       
-      // Read problems data from JSON
-      const problemsPath = path.join(__dirname, 'problems.json');
+      // Read problems data from JSON with a fallback check
+      const problemsPath = path.join(__dirname, 'files/problems.json');
+      if (!fs.existsSync(problemsPath)) {
+        console.error("Error: problems.json file not found at", problemsPath);
+        return;
+      }
+      
       const problemsData = JSON.parse(fs.readFileSync(problemsPath, 'utf8'));
 
       // Insert each problem from JSON into the database
