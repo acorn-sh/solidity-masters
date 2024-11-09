@@ -1,26 +1,41 @@
-// // config/initDb.js
-// const db = require('./database');
+const db = require('./database');
+const fs = require('fs');
+const path = require('path');
 
-// const initDb = async () => {
-//   try {
-//     await db.query(`
-//       CREATE TABLE IF NOT EXISTS problems (
-//         id SERIAL PRIMARY KEY,
-//         title VARCHAR(255) NOT NULL,
-//         description TEXT NOT NULL
-//       );
+const initDb = async () => {
+  try {
+    // Create tables if they do not exist
+    await db.query(`
+      CREATE TABLE IF NOT EXISTS problems (
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        description TEXT NOT NULL,
+        initial_code TEXT NOT NULL
+      );
+    `);
 
-//       CREATE TABLE IF NOT EXISTS leaderboard (
-//         id SERIAL PRIMARY KEY,
-//         wallet_address VARCHAR(42) NOT NULL,
-//         problems_solved INT DEFAULT 0
-//       );
-//     `);
+    // Read problems from JSON file
+    const problemsPath = path.join(__dirname, 'problems.json');
+    const problemsData = JSON.parse(fs.readFileSync(problemsPath, 'utf8'));
 
-//     console.log("Database initialized successfully.");
-//   } catch (error) {
-//     console.error("Error initializing database:", error);
-//   }
-// };
+    // Insert each problem if the table is empty
+    const { rows } = await db.query('SELECT COUNT(*) FROM problems');
+    if (parseInt(rows[0].count, 10) === 0) {
+      for (const problem of problemsData) {
+        await db.query(
+          'INSERT INTO problems (title, description, initial_code) VALUES ($1, $2, $3)',
+          [problem.title, problem.description, problem.initial_code]
+        );
+      }
+      console.log("Problems inserted successfully.");
+    } else {
+      console.log("Problems table already contains data. Skipping insert.");
+    }
 
-// initDb();
+    console.log("Database initialized successfully.");
+  } catch (error) {
+    console.error("Error initializing database:", error);
+  }
+};
+
+initDb();
