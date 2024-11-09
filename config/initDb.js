@@ -1,3 +1,4 @@
+// config/initDb.js
 const db = require('./database');
 const fs = require('fs');
 const path = require('path');
@@ -23,12 +24,12 @@ const initDb = async () => {
 
     if (parseInt(rows[0].count, 10) === 0) {
       console.log("Table is empty, inserting data...");
-      
-      // Read problems data from JSON in the root directory
+
+      // Load problems data from JSON
       const problemsPath = path.join(__dirname, '../data/problems.json');
       const problemsData = JSON.parse(fs.readFileSync(problemsPath, 'utf8'));
 
-      // Insert each problem from JSON into the database
+      // Insert each problem into the database
       for (const problem of problemsData) {
         await db.query(
           'INSERT INTO problems (title, description, initial_code) VALUES ($1, $2, $3)',
@@ -46,4 +47,4 @@ const initDb = async () => {
   }
 };
 
-initDb();
+module.exports = initDb;
