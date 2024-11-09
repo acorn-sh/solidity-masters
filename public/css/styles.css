@@ -302,7 +302,6 @@ input[type="submit"]:hover {
     padding: 5px;
     margin-bottom: 20px;
     background-color: #f8f7f5;
-    min-height: 200px;
 }
 
 textarea {

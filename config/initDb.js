@@ -4,7 +4,9 @@ const path = require('path');
 
 const initDb = async () => {
   try {
-    // Create tables if they do not exist
+    console.log("Initializing database...");
+    
+    // Create the table if it doesn't exist
     await db.query(`
       CREATE TABLE IF NOT EXISTS problems (
         id SERIAL PRIMARY KEY,
@@ -13,14 +15,20 @@ const initDb = async () => {
         initial_code TEXT NOT NULL
       );
     `);
+    console.log("Table creation checked.");
 
-    // Read problems from JSON file
-    const problemsPath = path.join(__dirname, 'problems.json');
-    const problemsData = JSON.parse(fs.readFileSync(problemsPath, 'utf8'));
-
-    // Insert each problem if the table is empty
+    // Check if the table is empty
     const { rows } = await db.query('SELECT COUNT(*) FROM problems');
+    console.log("Row count:", rows[0].count);
+
     if (parseInt(rows[0].count, 10) === 0) {
+      console.log("Table is empty, inserting data...");
+      
+      // Read problems data from JSON
+      const problemsPath = path.join(__dirname, 'problems.json');
+      const problemsData = JSON.parse(fs.readFileSync(problemsPath, 'utf8'));
+
+      // Insert each problem from JSON into the database
       for (const problem of problemsData) {
         await db.query(
           'INSERT INTO problems (title, description, initial_code) VALUES ($1, $2, $3)',
