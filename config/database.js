@@ -15,10 +15,11 @@
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  connectionString: process.env.POSTGRES_URL, // Vercel's environment variable for PostgreSQL
+  connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false,
-  },
+    rejectUnauthorized: false, // Allows self-signed certificates
+  }
 });
 
 module.exports = pool;
+
