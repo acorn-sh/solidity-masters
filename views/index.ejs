@@ -4,20 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>USC</title>
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="/images/favicon.ico"></link>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Linden+Hill:ital@0;1&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/monaco-editor@0.30.1/min/vs/loader.js"></script>
 </head>
-<body>
+<script>
+    let connectedAccount = null;
+
+    async function toggleMetaMaskConnection() {
+        if (window.ethereum) {
+            if (!connectedAccount) {
+                // Connect to MetaMask
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    connectedAccount = accounts[0];
+                    updateWalletUI(connectedAccount);
+                } catch (error) {
+                    console.error('Error connecting to MetaMask:', error);
+                }
+            } else {
+                // Disconnect from MetaMask
+                connectedAccount = null;
+                updateWalletUI(null);
+            }
+        } else {
+            alert('MetaMask is not installed! Please install it to use this feature.');
+        }
+    }
+
+    function updateWalletUI(account) {
+        const walletButton = document.getElementById('wallet-button');
+        const walletAddress = document.getElementById('wallet-address');
+
+        if (account) {
+            walletButton.innerText = 'Disconnect Wallet';
+            walletAddress.innerText = `${shortenAddress(account)}`;
+        } else {
+            walletButton.innerText = 'Connect Wallet';
+            walletAddress.innerText = '';
+        }
+    }
+
+    function shortenAddress(address) {
+        return `${address.slice(0, 6)}....${address.slice(-4)}`;
+    }
+</script>
+
+ <body>
     <center>
         <!-- Include Header -->
-        <h1>Solidity Ultimate Championship</h1>
+
+        <div class="header-container">
+            <h1>USC - Ultimate Solidity Championship</h1>
+            <div class="wallet-div">
+                <button id="wallet-button" onclick="toggleMetaMaskConnection()">Connect Wallet</button>
+                <p id="wallet-address" class="wallet-address"></p>
+            </div>
+        </div>
+        
         <!-- Main Content: Left and Right Columns -->
         <div class="links-section">
             <small><b>Menu:</b> <a href="#">Quickstart</a> · <a href="#">Tutorials</a> · <a href="#">Job Posting</a></small>
         </div>
-        
+
         <h2 class="time-title">Time: 30:00</h2>
 
         <div class="content">

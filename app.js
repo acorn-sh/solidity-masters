@@ -1,34 +1,45 @@
+// app.js
 const express = require('express');
 const path = require('path');
+const db = require('./config/database');
+
+// Import routes
+const indexRouter = require('./routes/index');
+const problemsRouter = require('./routes/problems');
+const leaderboardRouter = require('./routes/leaderboard');
+
 const app = express();
+const PORT = process.env.PORT || 3001;
 
-// Middleware to parse form data
-app.use(express.urlencoded({ extended: true }));
+// Middleware to parse JSON and URL-encoded data
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-// Set the view engine to EJS
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
-
-// Static files
+// Set up static files serving
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Import and use routes
-const routes = require('./routes/index');
-const pagesRoutes = require('./routes/pages');
+// Set up view engine (if using e.g., EJS)
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
-app.use('/', routes);
-app.use('/pages', pagesRoutes);
+// Connect to the database
+db.connect()
+  .then(() => {
+    console.log('Connected to PostgreSQL database.');
 
-// 404 Error Handling
-app.use((req, res) => {
-  res.status(404).render('404', { title: 'Page Not Found' });
-});
+    // Use routes
+    app.use('/', indexRouter);
+    app.use('/problems', problemsRouter);
+    app.use('/leaderboard', leaderboardRouter);
 
-// General error handling
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).render('500', { title: 'Server Error' });
-});
+    // Start the server
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error('Failed to connect to the database:', err);
+    process.exit(1);
+  });
 
-// **Export the app instance**
 module.exports = app;

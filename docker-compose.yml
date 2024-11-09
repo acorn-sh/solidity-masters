@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3001:3001"  # Map host port 3001 to container port 3001
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_USER: solidity_user
+      DB_PASSWORD: solidity_password
+      DB_NAME: solidity_db
+    volumes:
+      - .:/app  # Optional: Mount the current directory into the container for development
+    networks:
+      - solidity_network
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: solidity_user
+      POSTGRES_PASSWORD: solidity_password
+      POSTGRES_DB: solidity_db
+    volumes:
+      - solidity_pgdata:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - solidity_network
+
+networks:
+  solidity_network:
+
+volumes:
+  solidity_pgdata:

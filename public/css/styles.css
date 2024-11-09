@@ -92,6 +92,48 @@ hr {
     margin: 5px 0 5px 5px;
 }
 
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.wallet-div {
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+}
+
+.wallet-button {
+    position: absolute;
+    right: 0;
+    margin-right: 10px;
+}
+
+.wallet-address {
+    width: 160px; /* Adjust based on expected address length */
+    height: 20px; /* Optional, to ensure a stable height */
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #333;
+    font-weight: bold;
+}
+
+.editor-sol {
+    width: 805px;
+    height: 500px;
+    margin: 20px auto;
+}
+
+.output-sol {
+    width: 605px;
+    margin: 20px auto;
+}
+
 li {
     display: grid;
     grid-template-columns: 12px 1fr 60px;
@@ -99,21 +141,29 @@ li {
     align-items: center;
 }
 
-.number {
-    text-align: left;
+#problems-list li {
+    display: flex;
+    align-items: flex-start; /* Top alignment for children */
+    padding: 2px 0;
 }
 
-.text {
+.column-number {
     text-align: left;
-    white-space: nowrap;
+    margin-top: 2px;
+}
+
+.column-text {
+    flex-grow: 1;
+    text-align: left;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 250px;
+    word-wrap: break-word;
+    white-space: normal;
 }
 
-.score {
+.column-score {
     text-align: right;
-    width: 60px;
+    margin-top: 2px; /* Slight adjustment for alignment */
 }
 
 /* Input Fields and Buttons */
@@ -154,7 +204,7 @@ input[type="submit"]:hover {
 .content {
     display: flex;
     justify-content: space-between;
-    width: 1040px;
+    width: 1240px;
     margin: 5px;
     padding: 5px;
     flex: 1;
@@ -166,15 +216,20 @@ input[type="submit"]:hover {
 }
 
 .center-monocolumn {
-    width: 1040px;
+    width: 1240px;
 }
 
 .main-column {
-    width: 620px;
+    width: 820px;
     text-align: justify;
 }
 
 .right-column {
+    width: 200px;
+    text-align: justify;
+}
+
+.left-column {
     width: 200px;
     text-align: justify;
 }
@@ -247,6 +302,7 @@ input[type="submit"]:hover {
     padding: 5px;
     margin-bottom: 20px;
     background-color: #f8f7f5;
+    min-height: 200px;
 }
 
 textarea {
