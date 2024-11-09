@@ -16,14 +16,14 @@ const initDb = async () => {
         initial_code TEXT NOT NULL
       );
     `);
-    console.log("Table creation checked.");
+    console.log("Table 'problems' creation checked.");
 
     // Check if the table is empty
     const { rows } = await db.query('SELECT COUNT(*) FROM problems');
-    console.log("Row count:", rows[0].count);
+    console.log("Row count in 'problems':", rows[0].count);
 
     if (parseInt(rows[0].count, 10) === 0) {
-      console.log("Table is empty, inserting data...");
+      console.log("Table 'problems' is empty, inserting data...");
 
       // Load problems data from JSON
       const problemsPath = path.join(__dirname, '../data/problems.json');
@@ -36,7 +36,7 @@ const initDb = async () => {
           [problem.title, problem.description, problem.initial_code]
         );
       }
-      console.log("Problems inserted successfully.");
+      console.log("Problems inserted successfully into 'problems' table.");
     } else {
       console.log("Problems table already contains data. Skipping insert.");
     }
