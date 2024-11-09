@@ -5,7 +5,7 @@ const path = require('path');
 const initDb = async () => {
   try {
     console.log("Initializing database...");
-    
+
     // Create the table if it doesn't exist
     await db.query(`
       CREATE TABLE IF NOT EXISTS problems (
@@ -24,13 +24,8 @@ const initDb = async () => {
     if (parseInt(rows[0].count, 10) === 0) {
       console.log("Table is empty, inserting data...");
       
-      // Read problems data from JSON with a fallback check
-      const problemsPath = path.join(__dirname, 'files/problems.json');
-      if (!fs.existsSync(problemsPath)) {
-        console.error("Error: problems.json file not found at", problemsPath);
-        return;
-      }
-      
+      // Read problems data from JSON in the root directory
+      const problemsPath = path.join(__dirname, '../problems.json');
       const problemsData = JSON.parse(fs.readFileSync(problemsPath, 'utf8'));
 
       // Insert each problem from JSON into the database
