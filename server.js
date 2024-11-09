@@ -5,6 +5,14 @@ const db = require('./config/database');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+// Middleware for parsing JSON requests
+app.use(express.json());
+
+// Route example (adjust as needed)
+app.get('/', (req, res) => {
+  res.send('Hello, Solidity programming competition!');
+});
+
 // Function to connect to the database with retry logic
 const connectWithRetry = async (retries = 5, delay = 5000) => {
   try {
@@ -16,24 +24,20 @@ const connectWithRetry = async (retries = 5, delay = 5000) => {
       process.exit(1);
     } else {
       console.warn(`Database connection failed. Retrying in ${delay / 1000} seconds... (${retries} retries left)`);
-      setTimeout(() => connectWithRetry(retries - 1, delay), delay);
+      await new Promise((resolve) => setTimeout(resolve, delay)); // Properly await delay
+      return connectWithRetry(retries - 1, delay); // Retry connection
     }
   }
 };
 
-// Initialize server after establishing database connection
+// Start the server after database connection
 const startServer = () => {
-  // Define your routes here
-  app.get('/', (req, res) => {
-    res.send('Hello, Solidity programming competition!');
-  });
-
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
 };
 
-// Start the application
+// Self-invoking async function to initialize application
 (async () => {
   await connectWithRetry();
   startServer();

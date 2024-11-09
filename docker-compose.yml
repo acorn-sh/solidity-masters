@@ -4,7 +4,7 @@ services:
   app:
     build: .
     ports:
-      - "3001:3001"  # Map host port 3001 to container port 3001
+      - "3001:3001"  
     depends_on:
       db:
         condition: service_healthy
@@ -13,8 +13,6 @@ services:
       DB_USER: solidity_user
       DB_PASSWORD: solidity_password
       DB_NAME: solidity_db
-    volumes:
-      - .:/app  # Optional: Mount the current directory into the container for development
     networks:
       - solidity_network
 

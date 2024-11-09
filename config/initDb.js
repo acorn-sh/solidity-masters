@@ -25,7 +25,7 @@ const initDb = async () => {
       console.log("Table is empty, inserting data...");
       
       // Read problems data from JSON in the root directory
-      const problemsPath = path.join(__dirname, '../problems.json');
+      const problemsPath = path.join(__dirname, '../data/problems.json');
       const problemsData = JSON.parse(fs.readFileSync(problemsPath, 'utf8'));
 
       // Insert each problem from JSON into the database
