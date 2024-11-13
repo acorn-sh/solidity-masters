@@ -1,4 +1,3 @@
-// app.js
 require('dotenv').config();
 
 const express = require('express');
@@ -6,9 +5,10 @@ const path = require('path');
 const db = require('./config/database');
 
 // Import routes
-const indexRouter = require('./routes/index');  // Handles `/`
-const problemsRouter = require('./routes/index'); // Use this for `/problems`
+const indexRouter = require('./routes/index');
+const problemsRouter = require('./routes/index');
 const leaderboardRouter = require('./routes/leaderboard');
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -29,9 +29,10 @@ db.connect()
   .then(() => {
     console.log('Connected to PostgreSQL database.');
 
-    // Use routes with `api` prefix
-    app.use('/', indexRouter); // Handles `/`
-    app.use('/api', problemsRouter); // Handles `/api/problems`
+    // Use routes
+    app.use('/', indexRouter);
+    app.use('/api', problemsRouter);
+    app.use('/admin', adminRoutes);
     app.use('/api/leaderboard', leaderboardRouter);
 
     // Start the server

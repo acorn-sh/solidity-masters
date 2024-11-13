@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - USC</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <center>
+        <!-- Header -->
+        <div class="header-container">
+            <h1>Admin Panel</h1>
+            <div class="wallet-div">
+                <button id="wallet-button" onclick="toggleMetaMaskConnection()">Connect Wallet</button>
+                <p id="wallet-address" class="wallet-address"></p>
+            </div>
+        </div>
+        
+        <!-- Buttons Section -->
+        <div class="admin-section">
+            <button id="update-problems" onclick="updateProblems()">Update Problems</button>
+            <button id="fight-button">Fight</button>
+        </div>
+
+        <!-- Message Section -->
+        <div id="message" class="message-section"></div>
+    </center>
+
+    <script>
+        async function updateProblems() {
+            try {
+                const response = await fetch('/admin/update-problems', { method: 'POST' });
+                const data = await response.json();
+
+                const messageDiv = document.getElementById('message');
+                if (response.ok) {
+                    messageDiv.innerText = 'Problems updated successfully!';
+                    messageDiv.style.color = 'green';
+                } else {
+                    messageDiv.innerText = `Failed to update problems: ${data.error}`;
+                    messageDiv.style.color = 'red';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                const messageDiv = document.getElementById('message');
+                messageDiv.innerText = 'An error occurred while updating problems.';
+                messageDiv.style.color = 'red';
+            }
+        }
+    </script>
+</body>
+</html>
