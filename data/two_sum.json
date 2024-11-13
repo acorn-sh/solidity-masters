@@ -1,0 +1,68 @@
+{
+    "problems": [
+      {
+        "title": "Two Sum",
+        "status": "Unsolved",
+        "topics": ["Array", "Mapping"],
+        "companies": ["Company1", "Company2"],
+        "description": "Given an array of integers nums and an integer target, write a Solidity function to return the indices of the two numbers such that they add up to target.\n\nAssume that each input would have exactly one solution, and you may not use the same element twice.\n\nYou can return the answer in any order.",
+        "examples": [
+          {
+            "input": "nums = [2,7,11,15], target = 9",
+            "output": "[0,1]",
+            "explanation": "Because nums[0] + nums[1] == 9, we return [0, 1]."
+          },
+          {
+            "input": "nums = [3,2,4], target = 6",
+            "output": "[1,2]",
+            "explanation": "Because nums[1] + nums[2] == 6, we return [1, 2]."
+          },
+          {
+            "input": "nums = [3,3], target = 6",
+            "output": "[0,1]",
+            "explanation": "Because nums[0] + nums[1] == 6, we return [0, 1]."
+          }
+        ],
+        "constraints": [
+          "2 <= nums.length <= 104",
+          "-109 <= nums[i] <= 109",
+          "-109 <= target <= 109",
+          "Only one valid answer exists."
+        ],
+        "follow_up": "Can you optimize the function to have a time complexity of less than O(n^2)?",
+        "interview_data": {
+          "seen_in_real_interview": true,
+          "acceptance_rate": "54.2%",
+          "accepted": "15.2M",
+          "submissions": "28M"
+        },
+        "hints": [
+          "You can use a brute force approach by checking all pairs of numbers, but that would be inefficient.",
+          "Consider using a mapping (hash table) to store the difference of the target and the current number as you iterate through the array.",
+          "Optimize by checking if the difference already exists in the mapping before adding the current number."
+        ],
+        "solidity_template": {
+          "function": "function twoSum(uint[] memory nums, uint target) public pure returns (uint[] memory)",
+          "code": "// Implement the Two Sum function in Solidity\nfunction twoSum(uint[] memory nums, uint target) public pure returns (uint[] memory) {\n    // Your code here\n}"
+        },
+        "testcases": [
+          {
+            "nums": [2, 7, 11, 15],
+            "target": 9,
+            "expected": [0, 1]
+          },
+          {
+            "nums": [3, 2, 4],
+            "target": 6,
+            "expected": [1, 2]
+          },
+          {
+            "nums": [3, 3],
+            "target": 6,
+            "expected": [0, 1]
+          }
+        ]
+      }
+    ]
+  }
+  
