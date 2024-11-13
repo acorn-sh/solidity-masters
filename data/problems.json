@@ -18,6 +18,11 @@
       "title": "Using Enums to Manage Contract State",
       "description": "Create a simple contract that uses an enum to manage its state. The contract should have three states: Inactive, Active, and Paused. Implement functions to transition between these states while enforcing the following rules: The contract starts in the Inactive state. Only an authorized address (the owner) can change the state. The state can transition from Inactive to Active. The state can transition from Active to Paused and vice versa. The state cannot transition back to Inactive once it has become Active. Include events to log state changes.",
       "initial_code": "solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract StateMachine {\n    enum ContractState { Inactive, Active, Paused }\n\n    ContractState public state;\n    address public owner;\n\n    // Events\n    event StateChanged(ContractState newState);\n\n    // Constructor\n    constructor() {\n        // Your code here\n    }\n\n    // Function to activate the contract\n    function activate() public {\n        // Your code here\n    }\n\n    // Function to pause the contract\n    function pause() public {\n        // Your code here\n    }\n\n    // Function to resume the contract from pause\n    function resume() public {\n        // Your code here\n    }\n}\n"
+    },
+    {
+      "title": "Sum two numbers",
+      "description": "Implement a Solidity function add in a contract called Arithmetic that takes two uint256 numbers and returns their sum.",
+      "initial_code": "solidity\n// SPDX-License-Identifier: MIT\npragma solidity ^0.8.0;\n\ncontract StateMachine {\n    enum ContractState { Inactive, Active, Paused }\n\n    ContractState public state;\n    address public owner;\n\n    // Events\n    event StateChanged(ContractState newState);\n\n    // Constructor\n    constructor() {\n        // Your code here\n    }\n\n    // Function to activate the contract\n    function activate() public {\n        // Your code here\n    }\n\n    // Function to pause the contract\n    function pause() public {\n        // Your code here\n    }\n\n    // Function to resume the contract from pause\n    function resume() public {\n        // Your code here\n    }\n}\n"
     }
   ]
   
