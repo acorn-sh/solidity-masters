@@ -3,10 +3,12 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const db = require('./config/database');
+const updateProblems = require('./server/updateProblems');
+
 
 // Import routes
 const indexRouter = require('./routes/index');
-const problemsRouter = require('./routes/index');
+const problemsRouter = require('./routes/problems'); // Changed to avoid duplicate usage of index router
 const leaderboardRouter = require('./routes/leaderboard');
 const adminRoutes = require('./routes/admin');
 
@@ -24,14 +26,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// Connect to the database
+// Initialize database and load problems
+(async () => {
+  try {
+    console.log('Initializing database...');
+    await updateProblems();
+    console.log('Database initialized and problems loaded successfully.');
+  } catch (err) {
+    console.error('Failed to initialize database or load problems:', err);
+    process.exit(1); // Exit the process if the database initialization fails
+  }
+})();
+
+// Connect to the database and start the server
 db.connect()
   .then(() => {
     console.log('Connected to PostgreSQL database.');
 
     // Use routes
     app.use('/', indexRouter);
-    app.use('/api', problemsRouter);
+    app.use('/api/problems', problemsRouter); // Updated path for clarity
     app.use('/admin', adminRoutes);
     app.use('/api/leaderboard', leaderboardRouter);
 
@@ -42,7 +56,7 @@ db.connect()
   })
   .catch((err) => {
     console.error('Failed to connect to the database:', err);
-    process.exit(1);
+    process.exit(1); // Exit the process if the database connection fails
   });
 
 module.exports = app;
