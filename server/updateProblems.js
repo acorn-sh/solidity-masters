@@ -1,16 +1,16 @@
 const fs = require('fs');
 const path = require('path');
-const { Client } = require('pg'); // Assuming you're using PostgreSQL for Heroku
+const { Client } = require('pg'); // PostgreSQL client
 
 const dbClient = new Client({
   connectionString: process.env.DATABASE_URL,
 });
 dbClient.connect();
 
-const dataFolderPath = './data'; // Path to your data folder
+const dataFolderPath = './data'; // Path to data folder
 
-// Function to update the database with problem information
-async function updateProblemInDB(problemName, problemData) {
+// Function to insert or update a problem in the database
+async function loadProblemInDB(problemData) {
   const query = `
     INSERT INTO problems (title, status, topics, companies, description, examples, constraints, follow_up, hints, solidity_template, sol_file, t_sol_file)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
@@ -45,11 +45,10 @@ async function updateProblemInDB(problemName, problemData) {
   ]);
 }
 
-// Function to read files from the data folder and update the database
-async function processDataFiles() {
+// Function to process files in the data folder and load them into the database
+async function loadProblemsFromFiles() {
   const files = fs.readdirSync(dataFolderPath);
   
-  // Filter for relevant files
   const jsonFiles = files.filter(file => file.endsWith('.json'));
   
   for (const jsonFile of jsonFiles) {
@@ -58,10 +57,9 @@ async function processDataFiles() {
     const tSolFile = path.join(dataFolderPath, `${baseName}.t.sol`);
     
     if (fs.existsSync(solFile) && fs.existsSync(tSolFile)) {
-      // Read the JSON file content
       const jsonData = JSON.parse(fs.readFileSync(path.join(dataFolderPath, jsonFile), 'utf-8'));
 
-      // Prepare problem data for DB insertion
+      // Prepare data to load into DB
       const problemData = {
         title: jsonData.title,
         status: jsonData.status,
@@ -77,21 +75,20 @@ async function processDataFiles() {
         t_sol_file: tSolFile,
       };
 
-      // Update database with the problem
-      await updateProblemInDB(baseName, problemData);
+      // Insert or update the problem into DB
+      await loadProblemInDB(problemData);
     }
   }
 }
 
-// Trigger function on button click (admin section)
+// Trigger loading process
 async function updateProblems() {
   try {
-    await processDataFiles();
-    console.log('Problems updated successfully.');
+    await loadProblemsFromFiles();
+    console.log('Problems loaded successfully.');
   } catch (err) {
-    console.error('Error updating problems:', err);
+    console.error('Error loading problems:', err);
   }
 }
 
-// Simulate trigger when button is clicked
-updateProblems();
+updateProblems(); // Start the process
